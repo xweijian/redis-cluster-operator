@@ -1,5 +1,7 @@
 FROM golang:1.13.3-alpine as go-builder
 
+RUN echo "https://mirror.tuna.tsinghua.edu.cn/alpine/v3.8/main/" > /etc/apk/repositories
+
 RUN apk update && apk upgrade && \
     apk add --no-cache ca-certificates git mercurial
 
@@ -13,6 +15,7 @@ ARG GIT_SHA=0000000
 
 WORKDIR /src
 
+ENV GOPROXY=https://goproxy.io
 COPY go.mod ./ go.sum ./
 RUN go mod download
 
