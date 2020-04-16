@@ -1,0 +1,28 @@
+apiVersion: redis.kun/v1alpha1
+kind: DistributedRedisCluster
+metadata:
+  annotations:
+    # if your operator run as cluster-scoped, add this annotations
+    redis.kun/scope: cluster-scoped
+  name: example-distributedrediscluster
+spec:
+  clusterReplicas: 1
+  config:
+    activerehashing: "yes"
+    appendfsync: everysec
+    appendonly: "no"
+  image: redis:5.0.4-alpine
+  masterSize: 5
+  resources:
+    limits:
+      cpu: "1"
+      memory: 4Gi
+    requests:
+      cpu: 500m
+      memory: 2Gi
+  serviceName: rbd-distributedrediscluster
+  storage:
+    class: csi-rbd-sc
+    deleteClaim: true
+    size: 1Gi
+    type: persistent-claim
