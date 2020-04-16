@@ -25,7 +25,7 @@ const (
 	redisServerName             = "redis"
 	hostnameTopologyKey         = "kubernetes.io/hostname"
 
-	graceTime = 30
+	graceTime = 5
 
 	configMapVolumeName = "conf"
 )

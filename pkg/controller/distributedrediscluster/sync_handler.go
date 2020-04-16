@@ -16,7 +16,7 @@ import (
 )
 
 const (
-	requeueAfter = 10 * time.Second
+	requeueAfter = 5 * time.Second
 )
 
 type syncContext struct {
@@ -53,9 +53,9 @@ func (r *ReconcileDistributedRedisCluster) ensureCluster(ctx *syncContext) error
 		SetClusterUpdating(&cluster.Status, "cluster spec updated")
 		r.crController.UpdateCRStatus(cluster)
 		waiter := &waitStatefulSetUpdating{
-			name:                  "waitStatefulSetUpdating",
-			timeout:               30 * time.Second * time.Duration(cluster.Spec.ClusterReplicas+2),
-			tick:                  5 * time.Second,
+			name:    "waitStatefulSetUpdating",
+			timeout: 30 * time.Second * time.Duration(cluster.Spec.ClusterReplicas+2),
+			tick:    5 * time.Second,
 			statefulSetController: r.statefulSetController,
 			cluster:               cluster,
 		}
@@ -292,10 +292,10 @@ func (r *ReconcileDistributedRedisCluster) scalingDown(ctx *syncContext, current
 		}
 		// wait pod Terminating
 		waiter := &waitPodTerminating{
-			name:                  "waitPodTerminating",
-			statefulSet:           stsName,
-			timeout:               30 * time.Second * time.Duration(cluster.Spec.ClusterReplicas+2),
-			tick:                  5 * time.Second,
+			name:        "waitPodTerminating",
+			statefulSet: stsName,
+			timeout:     30 * time.Second * time.Duration(cluster.Spec.ClusterReplicas+2),
+			tick:        5 * time.Second,
 			statefulSetController: r.statefulSetController,
 			cluster:               cluster,
 		}
