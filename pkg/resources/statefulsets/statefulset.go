@@ -201,8 +201,9 @@ func redisServerContainer(cluster *redisv1alpha1.DistributedRedisCluster, passwo
 	probeArg := "redis-cli -h $(hostname) ping"
 
 	container := corev1.Container{
-		Name:  redisServerName,
-		Image: cluster.Spec.Image,
+		Name:            redisServerName,
+		Image:           cluster.Spec.Image,
+		ImagePullPolicy: corev1.PullIfNotPresent,
 		Ports: []corev1.ContainerPort{
 			{
 				Name:          "client",
