@@ -17,6 +17,7 @@ spec:
         - name: redis-cluster-operator
           # Replace this with the built image name
           image: fishu/redis-cluster-operator:latest
+          imagePullPolicy: IfNotPresent
           command:
           - redis-cluster-operator
           args:
