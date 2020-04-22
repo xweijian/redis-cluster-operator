@@ -217,6 +217,7 @@ func (a *Admin) AttachSlaveToMaster(slave *Node, masterID string) error {
 
 // GetClusterNodes get redis cluster nodes
 func (a *Admin) GetClusterNodes(addr string, slots []Slot) error {
+	return nil
 }
 
 // AddSlots use to ADDSLOT commands on several slots
