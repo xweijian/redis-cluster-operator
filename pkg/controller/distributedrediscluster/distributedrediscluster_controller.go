@@ -262,9 +262,9 @@ func (r *ReconcileDistributedRedisCluster) Reconcile(request reconcile.Request) 
 			return reconcile.Result{}, err
 		}
 		waiter := &waitStatefulSetUpdating{
-			name:                  "waitMasterNodeRestarting",
-			timeout:               60 * time.Second,
-			tick:                  5 * time.Second,
+			name:    "waitMasterNodeRestarting",
+			timeout: 60 * time.Second,
+			tick:    5 * time.Second,
 			statefulSetController: r.statefulSetController,
 			cluster:               instance,
 		}

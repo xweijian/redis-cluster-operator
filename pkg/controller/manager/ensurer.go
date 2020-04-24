@@ -126,6 +126,10 @@ func shouldUpdateRedis(cluster *redisv1alpha1.DistributedRedisCluster, sts *apps
 	if result := expectResource.Limits.Cpu().Cmp(*currentResource.Limits.Cpu()); result != 0 {
 		return true
 	}
+	if len(sts.Spec.VolumeClaimTemplates) == 1 && cluster.Spec.Storage != nil {
+		return true
+	}
+
 	return false
 }
 
